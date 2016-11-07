@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "LNCollectionViewController.h"
 
 @interface AppDelegate ()
 
@@ -16,7 +17,10 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    self.window.bounds =[UIScreen mainScreen].bounds;
+//    UINavigationController *nav =[[UINavigationController alloc]initWithRootViewController:[[LNCollectionViewController alloc]init]];
+    self.window.rootViewController =[[LNCollectionViewController alloc]init];
+    [self.window makeKeyAndVisible];
     return YES;
 }
 
