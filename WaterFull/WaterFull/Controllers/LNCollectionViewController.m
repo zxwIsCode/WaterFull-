@@ -31,9 +31,9 @@ UICollectionViewDataSource>
 // 底部加载视图
 @property(nonatomic,weak)LNWaterfallFlowFooterView *footerView;
 // 瀑布流布局对象
-@property(nonatomic,weak)LNWaterfallFlowLayout *waterfallFlowLayout;
+@property(nonatomic,strong)LNWaterfallFlowLayout *waterfallFlowLayout;
 
-@property(nonatomic,strong)UICollectionViewFlowLayout *flowLayout;
+//@property(nonatomic,strong)UICollectionViewFlowLayout *flowLayout;
 
 
 @property(nonatomic,strong)UICollectionView *collectionView;
@@ -48,13 +48,11 @@ static NSString * const reuseIdentifier = @"Cell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
+    [self.view addSubview:self.collectionView];
     [self loadData];
 //    self.view.backgroundColor =[UIColor redColor];
 //    self.collectionView.backgroundColor =[UIColor blueColor];
-    [self.view addSubview:self.collectionView];
-    // Uncomment the following line to preserve selection between presentations
-    // self.clearsSelectionOnViewWillAppear = NO;
+
 
     
     // Do any additional setup after loading the view.
@@ -68,8 +66,8 @@ static NSString * const reuseIdentifier = @"Cell";
     [self.goodList addObjectsFromArray:goods];
     self.index ++;
     // 设置瀑布流数据
-//    self.waterfallFlowLayout.columCount =3;
-//    self.waterfallFlowLayout.goodList =self.goodList;
+    self.waterfallFlowLayout.columCount =3;
+    self.waterfallFlowLayout.goodList =self.goodList;
     [self.collectionView reloadData];
 }
 
@@ -106,26 +104,22 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 -(UICollectionView *)collectionView {
     if (!_collectionView) {
-        self.flowLayout =[[UICollectionViewFlowLayout alloc]init];
-        self.flowLayout.minimumInteritemSpacing =2;
-        self.flowLayout.minimumLineSpacing =2;
-        self.flowLayout.sectionInset =UIEdgeInsetsMake(7, 8, 7, 8);
-        CGFloat itemWidth =(SCREEN_WIDTH -8*2-2 *3)/4.0;
-        CGFloat itemHeight =itemWidth;
-        self.flowLayout.itemSize =CGSizeMake(itemWidth, itemHeight);
+        self.waterfallFlowLayout =[[LNWaterfallFlowLayout alloc]init];
+
         
-        _collectionView =[[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, ScreenHeight) collectionViewLayout:self.flowLayout];
-        _collectionView.backgroundColor =[UIColor whiteColor];
+        _collectionView =[[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, ScreenHeight) collectionViewLayout:self.waterfallFlowLayout];
+        _collectionView.backgroundColor =[UIColor redColor];
         
         self.automaticallyAdjustsScrollViewInsets = NO;
         _collectionView.dataSource =self;
         _collectionView.delegate =self;
+        _collectionView.bounces =NO;
         
         //  设置cell
            [_collectionView registerClass:[LNWaterfallFlowCell class] forCellWithReuseIdentifier:kLNWaterfallFlowCell];
         
         //  设置分区的title
-        [_collectionView registerClass:[LNWaterfallFlowFooterView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:kLNWaterfallFlowFooterView];
+        [_collectionView registerClass:[LNWaterfallFlowFooterView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:kLNWaterfallFlowFooterView];
     }
     return _collectionView;
 }

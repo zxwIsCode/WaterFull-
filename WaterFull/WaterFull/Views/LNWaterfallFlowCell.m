@@ -28,25 +28,25 @@
         if (self) {
             
             self.iconImageView =[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width , self.frame.size.height)];
-            self.priceLable =[[UILabel alloc]initWithFrame:CGRectZero];
+            self.priceLable =[[UILabel alloc]initWithFrame:CGRectMake(0, self.frame.size.height -20, self.frame.size.width, 20)];
             [self.contentView addSubview:self.iconImageView];
             [self.contentView addSubview:self.priceLable];
-//            self.iconImageView.backgroundColor =[UIColor blueColor];
+
+
         }
     }
     return self;
 }
 
 -(void)setGood:(LNGood *)good {
-//    self.iconImageView.frame =CGRectMake(0, 0, self.frame.size.width , self.frame.size.height);
-//    self.iconImageView.image =[UIImage imageNamed:@"108icon"];
+
+    self.iconImageView.backgroundColor =[UIColor blueColor];
+    self.iconImageView.frame =CGRectMake(0, 0, self.frame.size.width, self.frame.size.width *good.h/good.w);
+    self.priceLable.backgroundColor =[UIColor yellowColor];
     NSURL *url = [NSURL URLWithString:good.img];
     [self.iconImageView sd_setImageWithURL:url];
-//    [self.iconImageView sd_setImageWithURL:[NSURL URLWithString:good.img] placeholderImage:nil];
-//    CGRectMake(0, 0, self.frame.size.width, self.frame.size.width *good.h/good.w)
-    self.priceLable.frame =CGRectMake(0, self.frame.size.height -20, self.frame.size.width, 20);
+
     self.priceLable.text =good.price;
-    self.priceLable.backgroundColor =[UIColor yellowColor];
     self.priceLable.textAlignment =NSTextAlignmentCenter;
 }
 
