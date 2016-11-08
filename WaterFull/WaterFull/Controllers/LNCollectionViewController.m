@@ -105,7 +105,6 @@ static NSString * const reuseIdentifier = @"Cell";
 -(UICollectionView *)collectionView {
     if (!_collectionView) {
         self.waterfallFlowLayout =[[LNWaterfallFlowLayout alloc]init];
-
         
         _collectionView =[[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, ScreenHeight) collectionViewLayout:self.waterfallFlowLayout];
         _collectionView.backgroundColor =[UIColor redColor];
